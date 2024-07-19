@@ -30,8 +30,8 @@ class BalancioPID(Node):
             ),
         )
 
-        self.dt = 0.05
-        self.subscription = self.create_subscription(Imu, "/imu", self.imu_callback, 10)
+        self.dt = 0.01
+        self.subscription = self.create_subscription(Imu, "/imu", self.imu_callback, 1)
         self.publisher = self.create_publisher(Twist, "/cmd_vel", 10)
         self.timer = self.create_timer(self.dt, self.update)
 
@@ -63,21 +63,24 @@ class BalancioPID(Node):
         self.get_logger().debug(f" Tilt angle: {np.degrees(self.theta)}")
 
     def update(self):
-        error = self.desired_theta - self.theta
+        error = self.theta - self.desired_theta
+
+        self.get_logger().info(f"Error: {error}")
+
         self.error_sum += error
         self.error_sum = np.clip(self.error_sum, -1, 1)
 
         u = (
             self.kp * error
             + self.ki * self.error_sum * self.dt
-            + self.kd * (error - self.error_prev) / self.dt
+            + self.kd * (self.error - self.error_prev) / self.dt
         )
 
         self.error_prev = error
 
         twist_msg = Twist()
         twist_msg.linear.x = (
-            u if self.theta < np.pi / 2 and self.theta > -np.pi / 2 else 0.0
+            u * 0.2 if self.theta < np.pi / 4 and self.theta > -np.pi / 4 else 0.0
         )
 
         self.publisher.publish(twist_msg)
