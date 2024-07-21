@@ -1,6 +1,8 @@
 # Balancio Sim
 
-![Balancio Animation](./resources/balancio.gif)
+<div align="center">
+  <img alt="Balancio Animation" src="./resources/balancio.gif">
+</div>
 
 This is the implementation of a self-balancing robot called [Balancio]
 in NVIDIA Isaac Sim.
