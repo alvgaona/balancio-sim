@@ -1,5 +1,5 @@
 [project]
-name = "my_ros2_project"
+name = "balancio-sim"
 version = "0.1.0"
 description = "Add a short description here"
 authors = ["Alvaro <alvgaona@gmail.com>"]
@@ -9,12 +9,11 @@ platforms = ["win-64"]
 [dependencies]
 python = ">=3.10.0,<3.11"
 ros-humble-desktop = ">=0.10.0,<0.11"
-ros-humble-turtlesim = ">=1.4.2,<1.5"
 colcon-common-extensions = ">=0.3.0,<0.4"
 setuptools = ">=61.0.0,<61.1"
-ros-humble-teleop-twist-keyboard = ">=2.3.2,<2.4"
 numpy = ">=1.26.4,<1.27"
 scipy = ">=1.14.0,<1.15"
+casadi = ">=3.6.3,<3.7"
 
 [activation]
 scripts = ["install/setup.bat"]

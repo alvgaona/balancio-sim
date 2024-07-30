@@ -1,4 +1,4 @@
-$env:isaac_sim_package_path = "D:\.ov\pkg\isaac-sim-2023.1.1"
+$env:isaac_sim_package_path = "D:\.ov\pkg\isaac-sim-4.1.0"
 
 $env:RMW_IMPLEMENTATION = "rmw_fastrtps_cpp"
 
