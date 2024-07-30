@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Add a short description here"
 authors = ["Alvaro <alvgaona@gmail.com>"]
 channels = ["robostack-staging", "conda-forge"]
-platforms = ["win-64"]
+platforms = ["linux-64", "win-64"]
 
 [dependencies]
 python = ">=3.10.0,<3.11"
@@ -16,4 +16,7 @@ scipy = ">=1.14.0,<1.15"
 casadi = ">=3.6.3,<3.7"
 
 [activation]
+scripts = ["install/setup.sh"]
+
+[target.win-64.activation]
 scripts = ["install/setup.bat"]
