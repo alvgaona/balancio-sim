@@ -172,17 +172,57 @@ class CartpoleMPC:
             return [0.0]
 
 
+class CartpolePID:
+    def __init__(
+        self,
+        dt: float,
+        kp: float,
+        ki: float,
+        kd: float,
+        sum_constraint: tuple[int, int] = (-1.0, 1.0),
+    ) -> None:
+        self.dt = dt
+        self.kp = kp
+        self.ki = ki
+        self.kd = kd
+        self.sum_constraint = sum_constraint
+        self.error_sum = 0
+        self.error_prev = 0
+
+    def compute_control(self, theta: float, set_point: float) -> float:
+        error = theta - set_point
+
+        self.error_sum += error
+        self.error_sum = np.clip(
+            self.error_sum, self.sum_constraint[0], self.sum_constraint[1]
+        )
+
+        u = (
+            self.kp * error
+            + self.ki * self.error_sum * self.dt
+            + self.kd * (error - self.error_prev) / self.dt
+        )
+
+        self.error_prev = error
+
+        return u
+
+
 class CartpoleNode(Node):
     def __init__(self):
         super().__init__("cartpole_node")
         self.get_logger().set_level(rclpy.logging.LoggingSeverity.DEBUG)
 
-        self.dt = 0.05
+        self.dt = 0.01
 
-        self.model = NonlinearCartpole()
-        self.controller = CartpoleMPC(
-            f=self.model.transition_fn, nonlinear=True, dt=self.dt
-        )
+        # self.model = NonlinearCartpole()
+        # self.controller = CartpolePID(
+        #     f=self.model.transition_fn, nonlinear=True, dt=self.dt
+        # )
+
+        self.controller = CartpolePID(dt=self.dt, kp=50.0, ki=1.0, kd=5.0)
+
+        self.set_point = 0.0
 
         self.subscription = self.create_subscription(
             JointState, "/joint_states", self.joint_states_cb, 1
@@ -190,20 +230,25 @@ class CartpoleNode(Node):
         self.publisher = self.create_publisher(JointState, "/joint_command", 10)
         self.timer = self.create_timer(self.dt, self.pub_cart_force)
 
-        self.pole_angle = 0
+        self.pole_angle = np.pi
 
     def joint_states_cb(self, msg: JointState) -> None:
-        self.pole_angle = np.pi - msg.position[1]
+        self.pole_angle = np.pi - np.mod(msg.position[1], 2 * np.pi)
+
         self.get_logger().debug(f" Pole angle [rad]: {self.pole_angle}")
 
+        error = self.pole_angle - self.set_point
+
+        self.get_logger().debug(f" Error: {error}")
+
     def pub_cart_force(self):
-        u = self.controller.compute_control(self.pole_angle)
+        u = self.controller.compute_control(self.pole_angle, self.set_point)
 
         joint_state_msg = JointState()
 
         # TODO: fill the rest of the fields
         joint_state_msg.name.extend(["cartJoint"])
-        joint_state_msg.effort.append(u[0])
+        joint_state_msg.effort.append(u)
 
         self.publisher.publish(joint_state_msg)
 

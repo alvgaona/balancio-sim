@@ -1,26 +1,23 @@
 from setuptools import setup
 
-package_name = 'cartpole'
+package_name = "cartpole"
 
 setup(
     name=package_name,
-    version='0.0.1',
+    version="0.0.1",
     packages=[package_name],
     data_files=[
-        ('share/ament_index/resource_index/packages',
-            ['resource/' + package_name]),
-        ('share/' + package_name, ['package.xml']),
+        ("share/ament_index/resource_index/packages", ["resource/" + package_name]),
+        ("share/" + package_name, ["package.xml"]),
     ],
-    install_requires=['setuptools'],
+    install_requires=["setuptools"],
     zip_safe=True,
-    maintainer='Alvaro J. Gaona',
-    maintainer_email='alvgaona@gmail.com',
-    description='A cartpole control package for educational purposes',
-    license='MIT',
-    tests_require=['pytest'],
+    maintainer="Alvaro J. Gaona",
+    maintainer_email="alvgaona@gmail.com",
+    description="A cartpole control package for educational purposes",
+    license="MIT",
+    tests_require=["pytest"],
     entry_points={
-        'console_scripts': [
-            'cartpole_mpc = cartpole.cartpole_mpc:main'
-        ],
+        "console_scripts": ["control = cartpole.control:main"],
     },
 )
