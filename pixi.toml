@@ -14,6 +14,12 @@ setuptools = ">=61.0.0,<61.1"
 numpy = ">=1.26.4,<1.27"
 scipy = ">=1.14.0,<1.15"
 casadi = ">=3.6.3,<3.7"
+ruff = ">=0.5.5,<0.6"
+mypy = ">=1.11.1,<2"
+
+[tasks]
+"lint" = "pixi run ruff check . && pixi run ruff format --check . && pixi run mypy --explicit-package-bases ."
+"format" = "pixi run ruff check --fix . && pixi run ruff format ."
 
 [activation]
 scripts = ["install/setup.sh"]

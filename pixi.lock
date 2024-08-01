@@ -229,6 +229,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/mumps-include-5.2.1-ha770c72_14.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/mumps-seq-5.2.1-h2104b81_11.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/noarch/munkres-1.1.4-pyh9f0ad1d_0.tar.bz2
+      - conda: https://conda.anaconda.org/conda-forge/linux-64/mypy-1.11.1-py310h5b4e0ec_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/mypy_extensions-1.0.0-pyha770c72_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/mysql-common-8.0.33-hf1915f5_6.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/mysql-libs-8.0.33-hca2cd23_6.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/ncurses-6.5-h59595ed_0.conda
@@ -582,6 +584,7 @@ environments:
       - conda: https://conda.anaconda.org/robostack-staging/linux-64/ros2-distro-mutex-0.3.0-humble.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/linux-64/rosdistro-0.9.0-py310hff52083_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/rospkg-1.5.1-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-64/ruff-0.5.5-py310hea9781c_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/scipy-1.14.0-py310h93e2701_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/scotch-6.0.9-hb2e6521_2.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/linux-64/sdl2-2.26.5-h949db6a_0.conda
@@ -823,6 +826,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/multidict-6.0.5-py310h8d17308_0.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/mumps-seq-5.2.1-h1f49738_14.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/munkres-1.1.4-pyh9f0ad1d_0.tar.bz2
+      - conda: https://conda.anaconda.org/conda-forge/win-64/mypy-1.11.1-py310ha8f682b_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/mypy_extensions-1.0.0-pyha770c72_0.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/netifaces-0.11.0-py310h8d17308_2.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/nlohmann_json-3.11.3-h1537add_0.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/numpy-1.26.4-py310hf667824_0.conda
@@ -1160,6 +1165,7 @@ environments:
       - conda: https://conda.anaconda.org/robostack-staging/win-64/ros2-distro-mutex-0.2.0-humble.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/win-64/rosdistro-0.9.0-py310h5588dad_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/rospkg-1.5.1-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/win-64/ruff-0.5.5-py310h7f1804c_0.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/scipy-1.14.0-py310h46043a1_1.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/sdl2-2.30.5-he0c23c2_0.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/setuptools-61.0.0-py310h5588dad_0.tar.bz2
@@ -7480,6 +7486,64 @@ packages:
   license_family: Apache
   size: 12452
   timestamp: 1600387789153
+- kind: conda
+  name: mypy
+  version: 1.11.1
+  build: py310h5b4e0ec_0
+  subdir: linux-64
+  url: https://conda.anaconda.org/conda-forge/linux-64/mypy-1.11.1-py310h5b4e0ec_0.conda
+  sha256: 470cef4a69439a5126882544638b12890761d6e08cbd903f14f8fac5cc1d3a99
+  md5: d0af28a357f03da9eca641596cbc0207
+  depends:
+  - __glibc >=2.17,<3.0.a0
+  - libgcc-ng >=12
+  - mypy_extensions >=1.0.0
+  - psutil >=4.0
+  - python >=3.10,<3.11.0a0
+  - python_abi 3.10.* *_cp310
+  - tomli >=1.1.0
+  - typing_extensions >=4.1.0
+  license: MIT
+  license_family: MIT
+  size: 17749608
+  timestamp: 1722473234672
+- kind: conda
+  name: mypy
+  version: 1.11.1
+  build: py310ha8f682b_0
+  subdir: win-64
+  url: https://conda.anaconda.org/conda-forge/win-64/mypy-1.11.1-py310ha8f682b_0.conda
+  sha256: 589ac73567d6ba58ec14c618db0603d98483f0031516d0ff0f4a59b29bd0bf5d
+  md5: d372af02d54131f92d463379beffe7dc
+  depends:
+  - mypy_extensions >=1.0.0
+  - psutil >=4.0
+  - python >=3.10,<3.11.0a0
+  - python_abi 3.10.* *_cp310
+  - tomli >=1.1.0
+  - typing_extensions >=4.1.0
+  - ucrt >=10.0.20348.0
+  - vc >=14.2,<15
+  - vc14_runtime >=14.29.30139
+  license: MIT
+  license_family: MIT
+  size: 9681682
+  timestamp: 1722473277912
+- kind: conda
+  name: mypy_extensions
+  version: 1.0.0
+  build: pyha770c72_0
+  subdir: noarch
+  noarch: python
+  url: https://conda.anaconda.org/conda-forge/noarch/mypy_extensions-1.0.0-pyha770c72_0.conda
+  sha256: f240217476e148e825420c6bc3a0c0efb08c0718b7042fae960400c02af858a3
+  md5: 4eccaeba205f0aed9ac3a9ea58568ca3
+  depends:
+  - python >=3.5
+  license: MIT
+  license_family: MIT
+  size: 10492
+  timestamp: 1675543414256
 - kind: conda
   name: mysql-common
   version: 8.0.33
@@ -24898,6 +24962,44 @@ packages:
   license_family: BSD
   size: 31309
   timestamp: 1713573999299
+- kind: conda
+  name: ruff
+  version: 0.5.5
+  build: py310h7f1804c_0
+  subdir: win-64
+  url: https://conda.anaconda.org/conda-forge/win-64/ruff-0.5.5-py310h7f1804c_0.conda
+  sha256: 941fdb1f420eeb402e10b8abba2b74c713c929679bcc6ec82016b3d7cfe94a0c
+  md5: 7b8522b2d88f7816ad4b4452b14e757a
+  depends:
+  - python >=3.10,<3.11.0a0
+  - python_abi 3.10.* *_cp310
+  - ucrt >=10.0.20348.0
+  - vc >=14.2,<15
+  - vc14_runtime >=14.29.30139
+  license: MIT
+  license_family: MIT
+  size: 6279913
+  timestamp: 1721942156090
+- kind: conda
+  name: ruff
+  version: 0.5.5
+  build: py310hea9781c_0
+  subdir: linux-64
+  url: https://conda.anaconda.org/conda-forge/linux-64/ruff-0.5.5-py310hea9781c_0.conda
+  sha256: 0d24b54aa9b4e0f2d54645d8122ee0f8383e3d4dba17d83cb0e1d41f1994ffc9
+  md5: ff79a40b24d13dba2948dc2e916f5473
+  depends:
+  - __glibc >=2.17,<3.0.a0
+  - libgcc-ng >=12
+  - libstdcxx-ng >=12
+  - python >=3.10,<3.11.0a0
+  - python_abi 3.10.* *_cp310
+  constrains:
+  - __glibc >=2.17
+  license: MIT
+  license_family: MIT
+  size: 7164686
+  timestamp: 1721941030647
 - kind: conda
   name: scipy
   version: 1.14.0
