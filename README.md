@@ -57,24 +57,31 @@ Then, you can open it directly in Isaac Sim.
 
 ### Running Isaac Sim
 
-You can spin up Isaac Sim through the Ominverse Launcher UI but ROS2 won't work directly like that, so there's a script in the `scripts/` folder named `isaac_sim_run.ps1`.
-You need to run this Powershell script from within the Pixi environment, so first run:
+You can spin up Isaac Sim through the Ominverse Launcher UI but ROS2 won't work directly like that,
+so there's a script in the `scripts/` folder named `isaac_sim_run.ps1`
+or `isaac_sim_run.sh`, depending if you're on Windows or Linux, respectively.
+
+You need to run either script from within the Pixi environment, so first run:
 
 ```text
 pixi shell
 ```
 
-And then just do:
+And then just do either:
+
+**Windows Powershell**
 
 ```text
-. .\isaac_sim_run.ps1
+. .\scripts\isaac_sim_run.ps1
+```
+
+**Linux Shell**
+
+```text
+./scripts/isaac_sim_run.sh
 ```
 
 This will open up Isaac Sim with ROS2 ready to be used.
-
-> [!NOTE]  
-> Sorry that I haven't done a Linux guide to run Isaac Sim yet,
-> but I promise I'll add it soon.
 
 ## ROS2
 
