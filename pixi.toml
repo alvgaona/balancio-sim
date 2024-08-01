@@ -16,10 +16,21 @@ scipy = ">=1.14.0,<1.15"
 casadi = ">=3.6.3,<3.7"
 ruff = ">=0.5.5,<0.6"
 mypy = ">=1.11.1,<2"
+types-setuptools = ">=71.1.0.20240726,<72"
 
 [tasks]
-"lint" = "pixi run ruff check . && pixi run ruff format --check . && pixi run mypy --explicit-package-bases ."
-"format" = "pixi run ruff check --fix . && pixi run ruff format ."
+build = "pixi run colcon build"
+node = { cmd = [
+  "pixi",
+  "run",
+  "ros2",
+  "run",
+  "cartpole",
+], depends-on = [
+  "build",
+] }
+lint = "pixi run ruff check . && pixi run ruff format --check . && pixi run mypy --explicit-package-bases ."
+format = "pixi run ruff check --fix . && pixi run ruff format ."
 
 [activation]
 scripts = ["install/setup.sh"]

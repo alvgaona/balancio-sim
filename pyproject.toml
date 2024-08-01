@@ -82,19 +82,22 @@ warn_return_any = true
 warn_unused_configs = true
 exclude = ["build/", "install/", ".pixi/"]
 
-# mypy per-module options:
+[[tool.mypy.overrides]]
+module = "casadi.*"
+ignore_missing_imports = true
 
-# [[tool.mypy.overrides]]
-# module = "mycode.foo.*"
-# disallow_untyped_defs = true
+[[tool.mypy.overrides]]
+module = "scipy.*"
+ignore_missing_imports = true
 
-# [[tool.mypy.overrides]]
-# module = "mycode.bar"
-# warn_return_any = false
+[[tool.mypy.overrides]]
+module = "rclpy.*"
+ignore_missing_imports = true
 
-# [[tool.mypy.overrides]]
-# module = [
-#     "somelibrary",
-#     "some_other_library"
-# ]
-# ignore_missing_imports = true
+[[tool.mypy.overrides]]
+module = "sensor_msgs.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "geometry_msgs.*"
+ignore_missing_imports = true

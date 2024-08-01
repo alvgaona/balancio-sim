@@ -5,6 +5,8 @@ import casadi as ca
 
 from scipy.signal import StateSpace
 
+from .controller import Controller
+
 
 class Cartpole(ABC):
     def __init__(self) -> None:
@@ -107,7 +109,7 @@ class NonlinearCartpole(Cartpole):
         )
 
 
-class CartpoleMPC:
+class CartpoleMPC(Controller):
     def __init__(
         self,
         f: Callable[[ca.DM | ca.SX, ca.DM | ca.SX], ca.DM | ca.SX],
@@ -162,10 +164,10 @@ class CartpoleMPC:
         opti.solver("ipopt", p_opts, s_opts)
         self.opti = opti
 
-    def compute_control(self, x: ca.DM) -> None:
+    def compute(self, x: ca.DM) -> float:
         try:
             self.opti.set_value(self.x0, x)
             sol = self.opti.solve()
-            return sol.value(self.u)[0]
+            return float(sol.value(self.u)[0])
         except RuntimeError:
-            return [0.0]
+            return 0.0

@@ -2,11 +2,12 @@ import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import JointState
 
-from .pid import CartpolePID
+from .controllers.pid import CartpolePID
+from .controllers.controller import Controller
 
 
 class CartpoleNode(Node):
-    def __init__(self, dt: float, controller=None, model=None):
+    def __init__(self, dt: float, controller: Controller, model=None):
         super().__init__("cartpole_node")
         self.get_logger().set_level(rclpy.logging.LoggingSeverity.DEBUG)
 
@@ -25,13 +26,11 @@ class CartpoleNode(Node):
     def joint_states_cb(self, msg: JointState) -> None:
         self.pole_angle = msg.position[1]
 
-        self.get_logger().debug(f"Pole angle [rad]: {self.pole_angle}")
-
     def pub_cart_force(self):
         error = self.pole_angle - self.controller.set_point
 
         self.get_logger().debug(
-            f"Error [rad]: {error}, Pole angle [rad]: {self.pole_angle}"
+            f"Pole angle [rad]: {self.pole_angle}, Error [rad]: {error}"
         )
 
         u = self.controller.compute_control(error)
@@ -49,14 +48,11 @@ class CartpoleNode(Node):
 def main(args=None):
     dt = 0.025
 
-    # model = LinearCartpole(dt)
-    # mpc = CartpoleMPC(f=model.transition_fn, dt=dt)
-
     pid = CartpolePID(
         dt=dt,
-        kp=15.0,
-        ki=2.0,
-        kd=3.0,
+        kp=10.0,
+        ki=0.0,
+        kd=5.0,
         set_point=0.0,
         sum_constraint=(-1.0, 1.0),
     )
