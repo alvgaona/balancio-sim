@@ -1,4 +1,6 @@
-# pixi environments
+.vscode/
+.zed/
+.idea/
 .pixi
 *.egg-info
 build/
