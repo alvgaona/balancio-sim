@@ -91,10 +91,10 @@ control Balancio.
 
 ```text
 pixi run ros2 run balancio pid --ros-args \
--p kp:=7.5 \
--p ki:=3.6 \
--p kd:=0.08 \
--p set_point:=0.06108652 \
+-p kp:=2.3 \
+-p ki:=2.0 \
+-p kd:=0.05 \
+-p set_point:=-0.017 \
 -p sum_constraint:=1.0
 ```
 
