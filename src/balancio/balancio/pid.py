@@ -95,17 +95,21 @@ class BalancioPID(Node):
         )
 
         u = (
-            self.kp * error
-            + self.ki * self.error_sum * self.dt
-            + self.kd * (error - self.error_prev) / self.dt
+            (
+                self.kp * error
+                + self.ki * self.error_sum * self.dt
+                + self.kd * (error - self.error_prev) / self.dt
+            )
+            if np.linalg.norm(self.theta) < np.pi / 4
+            else 0.0
         )
+
+        self.get_logger().debug(f"Control input: {u}")
 
         self.error_prev = error
 
         twist_msg = Twist()
-        twist_msg.linear.x = (
-            u if self.theta < np.pi / 4 and self.theta > -np.pi / 4 else 0.0
-        )
+        twist_msg.linear.x = u
 
         self.publisher.publish(twist_msg)
 
