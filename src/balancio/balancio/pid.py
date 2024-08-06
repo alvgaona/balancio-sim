@@ -68,7 +68,7 @@ class BalancioPID(Node):
     def imu_callback(self, msg: Imu):
         self.get_logger().debug("Received IMU data:")
 
-        axis_angle = R.from_quat(
+        rotation_matrix = R.from_quat(
             np.array(
                 [
                     msg.orientation.x,
@@ -77,12 +77,13 @@ class BalancioPID(Node):
                     msg.orientation.w,
                 ]
             )
-        ).as_euler("zxy", degrees=False)
+        )
 
-        self.theta = axis_angle[2]
+        self.theta = np.arcsin(-rotation_matrix.as_matrix()[2, 0])
 
-        self.get_logger().debug(f" Euler Angles: {axis_angle}")
-        self.get_logger().debug(f" Tilt angle: {np.degrees(self.theta)}")
+        self.get_logger().debug(
+            f" Pitch Angle: {self.theta} rad. - {np.degrees(self.theta)} deg."
+        )
 
     def update(self):
         error = self.theta - self.set_point
@@ -116,9 +117,9 @@ class BalancioPID(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-    imu_subscriber = BalancioPID()
-    rclpy.spin(imu_subscriber)
-    imu_subscriber.destroy_node()
+    balancio_pid = BalancioPID()
+    rclpy.spin(balancio_pid)
+    balancio_pid.destroy_node()
     rclpy.shutdown()
 
 
